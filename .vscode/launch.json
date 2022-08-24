@@ -25,7 +25,6 @@
         "${workspaceFolder}/**/node_modules/**/*.js"
       ],
       "program": "${workspaceFolder}/src/client.ts",
-      "preLaunchTask": "build",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"]
     }
   ]
