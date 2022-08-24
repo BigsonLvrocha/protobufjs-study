@@ -1,3 +1,6 @@
 {
-    "makefile.extensionOutputFolder": "./.vscode",
+  "makefile.extensionOutputFolder": "./.vscode",
+  "protoc": {
+    "options": ["--proto_path=src/proto"]
+  }
 }

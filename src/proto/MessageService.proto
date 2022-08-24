@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-import "src/proto/SimpleMessage.proto";
-import "src/proto/AcknowledgeMessage.proto";
+import "SimpleMessage.proto";
+import "AcknowledgeMessage.proto";
 
 service MessageService {
   rpc SendMessage (SimpleMessage) returns (AcknowledgeMessage) {}
