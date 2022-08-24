@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "suppressTaskName": true,
+      "isBuildCommand": true,
+      "command": "make",
+      "args": ["build-and-copy"],
+      "type": "process"
+    }
+  ]
+}
