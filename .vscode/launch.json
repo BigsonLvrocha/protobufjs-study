@@ -7,15 +7,24 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Launch Server",
       "skipFiles": [
         "<node_internals>/**",
         "${workspaceFolder}/**/node_modules/**/*.js"
       ],
-      "program": "${workspaceFolder}/src/index.ts",
-      "env": {
-        "TS_NODE_TRANSPILE_ONLY": "true"
-      },
+      "program": "${workspaceFolder}/src/server.ts",
+      "preLaunchTask": "build",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Client",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/**/node_modules/**/*.js"
+      ],
+      "program": "${workspaceFolder}/src/client.ts",
       "preLaunchTask": "build",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"]
     }
