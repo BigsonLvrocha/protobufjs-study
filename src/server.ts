@@ -6,7 +6,8 @@ import {
   IAcknowledgeMessage,
   ISimpleMessage,
 } from "./proto";
-import { MessageServiceDefinition } from "./proto/__generated__/MessageService";
+
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 const processMessage = (message: ISimpleMessage): IAcknowledgeMessage => {
   const jsonMessage = JSON.stringify(message);
@@ -40,6 +41,17 @@ const handlers: MessageServiceHandlers = {
         cb(err, null);
       });
   },
+  ReceiveMultipleAcknowledges(call) {
+    const messages = call.request.messages
+    const sendAcknowledges = async () => {
+      for (const message of messages) {
+        await delay(1000);
+        call.write(processMessage(message));
+      }
+      call.end();
+    }
+    sendAcknowledges();
+  }
 };
 
 const server = new grpc.Server();

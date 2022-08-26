@@ -3,10 +3,12 @@ syntax = "proto3";
 import "SimpleMessage.proto";
 import "AcknowledgeMessage.proto";
 import "MultipleAcknowledgeMessage.proto";
+import "MultipleMessages.proto";
 
 option go_package = "./pb";
 
 service MessageService {
   rpc SendMessage (SimpleMessage) returns (AcknowledgeMessage) {}
   rpc SendMultipleMessages (stream SimpleMessage) returns (MultipleAcknowledgeMessage) {}
+  rpc ReceiveMultipleAcknowledges (MultipleMessages) returns (stream AcknowledgeMessage) {}
 }
