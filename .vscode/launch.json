@@ -19,12 +19,23 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Client",
+      "name": "Launch Protobuf Client",
       "skipFiles": [
         "<node_internals>/**",
         "${workspaceFolder}/**/node_modules/**/*.js"
       ],
-      "program": "${workspaceFolder}/src/client.ts",
+      "program": "${workspaceFolder}/src/clientProtobufjs.ts",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Grpc pure client",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/**/node_modules/**/*.js"
+      ],
+      "program": "${workspaceFolder}/src/clientGrpcPure.ts",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"]
     }
   ]
