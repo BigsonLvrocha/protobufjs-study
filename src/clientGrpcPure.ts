@@ -15,6 +15,31 @@ const messageServiceDef =
 const messageProto = grpc.loadPackageDefinition(definitions)
   .MessageService as grpc.ServiceClientConstructor;
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function main() {
+  const client = new messageProto(
+    grpcServerUrl,
+    grpc.credentials.createInsecure()
+  ) as unknown as MessageServiceClient;
+  try {
+    await sendUnaryMessage(client);
+    await sendClientStreamMessages(client);
+  } finally {
+    client.close();
+  }
+}
+
+main()
+  .then(() => {
+    console.log(`done`);
+    process.exit(0);
+  })
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+
 async function sendUnaryMessage(client: MessageServiceClient) {
   console.log(
     "----------------------------------------------------------------"
@@ -96,28 +121,3 @@ async function sendClientStreamMessages(client: MessageServiceClient) {
   console.log("result: ", result);
   console.log("");
 }
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-async function main() {
-  const client = new messageProto(
-    grpcServerUrl,
-    grpc.credentials.createInsecure()
-  ) as unknown as MessageServiceClient;
-  try {
-    await sendUnaryMessage(client);
-    await sendClientStreamMessages(client);
-  } finally {
-    client.close();
-  }
-}
-
-main()
-  .then(() => {
-    console.log(`done`);
-    process.exit(0);
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
