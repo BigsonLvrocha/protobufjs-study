@@ -25,6 +25,7 @@ async function main() {
   try {
     await sendUnaryMessage(client);
     await sendClientStreamMessages(client);
+    await sendServerStreamMessage(client);
   } finally {
     client.close();
   }
@@ -95,15 +96,15 @@ async function sendClientStreamMessages(client: MessageServiceClient) {
     const sendMessages = async () => {
       const messagesToSend: SimpleMessage[] = [
         {
-          id: "0",
+          id: "1",
           value: 0,
         },
         {
-          id: "1",
+          id: "2",
           value: 10,
         },
         {
-          id: "2",
+          id: "3",
           value: 200,
         },
       ];
@@ -119,5 +120,43 @@ async function sendClientStreamMessages(client: MessageServiceClient) {
   });
 
   console.log("result: ", result);
+  console.log("");
+}
+
+async function sendServerStreamMessage(client: MessageServiceClient) {
+  console.log(
+    "----------------------------------------------------------------"
+  );
+  console.log(
+    "-------------- sending client stream message -------------------"
+  );
+  console.log(
+    "----------------------------------------------------------------"
+  );
+  console.log("");
+
+  const multipleMessages = {
+    messages: [
+      {
+        id: "4",
+        value: 4,
+      },
+      {
+        id: "5",
+        value: 50,
+      },
+      {
+        id: "6",
+        value: 600,
+      },
+    ],
+  };
+
+  const stream = client.ReceiveMultipleAcknowledges(multipleMessages);
+  for await (const message of stream) {
+    console.log("received acknowledge: ", message);
+  }
+
+  console.log("Server stream closed");
   console.log("");
 }
