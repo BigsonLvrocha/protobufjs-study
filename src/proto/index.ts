@@ -1,5 +1,5 @@
 export * from "./__generated__/proto";
-export { MessageServiceHandlers } from "./__generated__/MessageService";
+export * from "./__generated__/MessageService";
 
 import * as protoLoader from "@grpc/proto-loader";
 import { join } from "path";
