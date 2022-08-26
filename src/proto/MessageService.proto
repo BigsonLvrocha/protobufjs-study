@@ -3,6 +3,8 @@ syntax = "proto3";
 import "SimpleMessage.proto";
 import "AcknowledgeMessage.proto";
 
+option go_package = "./pb";
+
 service MessageService {
   rpc SendMessage (SimpleMessage) returns (AcknowledgeMessage) {}
 }
