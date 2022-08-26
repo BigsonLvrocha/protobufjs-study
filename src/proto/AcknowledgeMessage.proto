@@ -4,4 +4,5 @@ option go_package = "./pb";
 
 message AcknowledgeMessage {
   string message = 1;
+  uint32 jsonsize = 2;
 }
