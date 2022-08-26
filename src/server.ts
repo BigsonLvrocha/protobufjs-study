@@ -1,4 +1,5 @@
 import * as grpc from "@grpc/grpc-js";
+import { Readable } from 'stream'
 import {
   definitions,
   MessageServiceHandlers,
@@ -15,10 +16,29 @@ const processMessage = (message: ISimpleMessage): IAcknowledgeMessage => {
   };
 };
 
+const handleSendMultipleMessages = async (call: Readable) => {
+  let messages = [];
+  for await (const message of call) {
+    messages.push(processMessage(message));
+  }
+  return {
+    messages,
+  };
+};
+
 const handlers: MessageServiceHandlers = {
   SendMessage(call, cb) {
     console.log("called");
     cb(null, processMessage(call.request));
+  },
+  SendMultipleMessages(call, cb) {
+    handleSendMultipleMessages(call)
+      .then((result) => {
+        cb(null, result);
+      })
+      .catch((err) => {
+        cb(err, null);
+      });
   },
 };
 
