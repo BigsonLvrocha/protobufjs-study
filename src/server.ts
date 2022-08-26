@@ -3,13 +3,13 @@ import { Readable } from 'stream'
 import {
   definitions,
   MessageServiceHandlers,
-  IAcknowledgeMessage,
-  ISimpleMessage,
+  AcknowledgeMessage__Output,
+  SimpleMessage__Output
 } from "./proto";
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
-const processMessage = (message: ISimpleMessage): IAcknowledgeMessage => {
+const processMessage = (message: SimpleMessage__Output): AcknowledgeMessage__Output => {
   const jsonMessage = JSON.stringify(message);
   return {
     message: `received: ${jsonMessage}`,

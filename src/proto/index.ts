@@ -1,5 +1,8 @@
-export * from "./__generated__/proto";
 export * from "./__generated__/MessageService";
+export * from './__generated__/AcknowledgeMessage'
+export * from './__generated__/MultipleAcknowledgeMessage'
+export * from './__generated__/MultipleMessages'
+export * from './__generated__/SimpleMessage'
 
 import * as protoLoader from "@grpc/proto-loader";
 import { join } from "path";
