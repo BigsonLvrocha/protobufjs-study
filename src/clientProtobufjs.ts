@@ -10,18 +10,22 @@ const client = new grpc.Client(
 
 const buildRpcImpl = (service: string) => {
   return (method, requestData, callback) => {
-    console.log('sending request: ', requestData)
+    console.log("sending request: ", requestData);
     client.makeUnaryRequest(
       `/${service}/${method.name}`,
-    (arg) => arg,
-    (arg) => arg,
-    requestData,
-    callback
-    )
-  }
-}
+      (arg) => arg,
+      (arg) => arg,
+      requestData,
+      callback
+    );
+  };
+};
 
-const messager = MessageService.create(buildRpcImpl('MessageService'), false, false);
+const messager = MessageService.create(
+  buildRpcImpl("MessageService"),
+  false,
+  false
+);
 
 messager
   .sendMessage({
