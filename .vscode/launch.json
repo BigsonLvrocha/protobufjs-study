@@ -8,10 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Server",
-      "skipFiles": [
-        "<node_internals>/**",
-        "${workspaceFolder}/**/node_modules/**/*.js"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/src/server.ts",
       "preLaunchTask": "build",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"]
@@ -20,10 +17,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Protobuf Client",
-      "skipFiles": [
-        "<node_internals>/**",
-        "${workspaceFolder}/**/node_modules/**/*.js"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/src/clientProtobufjs.ts",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"]
     },
@@ -31,10 +25,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Grpc pure client",
-      "skipFiles": [
-        "<node_internals>/**",
-        "${workspaceFolder}/**/node_modules/**/*.js"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/src/clientGrpcPure.ts",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"]
     }
