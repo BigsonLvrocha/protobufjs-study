@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "AcknowledgeMessage.proto";
+
+message MultipleAcknowledgeMessage {
+  repeated AcknowledgeMessage acknowledges = 1;
+}
