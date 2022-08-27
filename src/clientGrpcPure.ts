@@ -153,6 +153,8 @@ async function sendServerStreamMessage(client: MessageServiceClient) {
   };
 
   const stream = client.ReceiveMultipleAcknowledges(multipleMessages);
+  console.log("message sent, awaiting aknowledgement");
+
   for await (const message of stream) {
     console.log("received acknowledge: ", message);
   }
