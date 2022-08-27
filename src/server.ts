@@ -1,15 +1,17 @@
 import * as grpc from "@grpc/grpc-js";
-import { Readable } from 'stream'
+import { Readable } from "stream";
 import {
   definitions,
   MessageServiceHandlers,
   AcknowledgeMessage__Output,
-  SimpleMessage__Output
+  SimpleMessage__Output,
 } from "./proto";
 
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const processMessage = (message: SimpleMessage__Output): AcknowledgeMessage__Output => {
+const processMessage = (
+  message: SimpleMessage__Output
+): AcknowledgeMessage__Output => {
   const jsonMessage = JSON.stringify(message);
   return {
     message: `received: ${jsonMessage}`,
@@ -17,41 +19,55 @@ const processMessage = (message: SimpleMessage__Output): AcknowledgeMessage__Out
   };
 };
 
-const handleSendMultipleMessages = async (call: Readable) => {
-  let messages = [];
-  for await (const message of call) {
-    messages.push(processMessage(message));
-  }
-  return {
-    messages,
-  };
-};
-
 const handlers: MessageServiceHandlers = {
   SendMessage(call, cb) {
-    console.log("called");
     cb(null, processMessage(call.request));
   },
   SendMultipleMessages(call, cb) {
-    handleSendMultipleMessages(call)
-      .then((result) => {
-        cb(null, result);
-      })
-      .catch((err) => {
-        cb(err, null);
-      });
+    const handleSendMutipleMessages = async () => {
+      try {
+        let messages = [];
+
+        for await (const message of call) {
+          messages.push(processMessage(message));
+        }
+
+        cb(null, { messages });
+      } catch (err) {
+        cb(err);
+      }
+    };
+    handleSendMutipleMessages();
   },
   ReceiveMultipleAcknowledges(call) {
-    const messages = call.request.messages
+    const messages = call.request.messages;
+
     const sendAcknowledges = async () => {
       for (const message of messages) {
         await delay(1000);
         call.write(processMessage(message));
       }
+
       call.end();
-    }
+    };
+
     sendAcknowledges();
-  }
+  },
+  MessagePingPong(call) {
+    const handlePingPong = async () => {
+      try {
+        for await (const message of call) {
+          await delay(500);
+          call.write(processMessage(message));
+        }
+
+        call.end();
+      } catch (err) {
+        call.destroy(err);
+      }
+    };
+    handlePingPong();
+  },
 };
 
 const server = new grpc.Server();
