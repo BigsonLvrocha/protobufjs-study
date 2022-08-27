@@ -56,12 +56,20 @@ const handlers: MessageServiceHandlers = {
   MessagePingPong(call) {
     const handlePingPong = async () => {
       try {
+        call.once('end', () => {
+          call.end();
+        })
+
         for await (const message of call) {
           await delay(500);
+
+          if (call.writableEnded) {
+            break;
+          }
           call.write(processMessage(message));
         }
 
-        call.end();
+        call.end()
       } catch (err) {
         call.destroy(err);
       }
