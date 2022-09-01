@@ -1,5 +1,4 @@
 import * as grpc from "@grpc/grpc-js";
-import { Readable } from "stream";
 import {
   definitions,
   MessageServiceDefinition,
@@ -8,9 +7,6 @@ import {
 import { SimpleMessage } from "./proto/__generated__/SimpleMessage";
 
 const grpcServerUrl = "127.0.0.1:8080";
-
-const messageServiceDef =
-  definitions.MessageService as unknown as MessageServiceDefinition;
 
 const messageProto = grpc.loadPackageDefinition(definitions)
   .MessageService as grpc.ServiceClientConstructor;
