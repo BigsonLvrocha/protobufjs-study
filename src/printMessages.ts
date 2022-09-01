@@ -2,7 +2,7 @@ import { dirname, join } from "path";
 import { statSync } from "fs";
 import {
   SimpleMessage,
-  MultipleMessages,
+  multiple,
   MessageService,
   AcknowledgeMessage,
 } from "./proto/__generated__/proto";
@@ -10,10 +10,10 @@ import * as multipleMessageJson from "../examples/MultipleMessage/json.json";
 import * as simpleMessageJson from "../examples/SimpleMessage/json.json";
 
 const simpleMessage = new SimpleMessage(simpleMessageJson);
-const multipleMessage = new MultipleMessages(multipleMessageJson);
+const multipleMessage = new multiple.MultipleMessages(multipleMessageJson);
 const simpleMessageEncoded = SimpleMessage.encode(simpleMessage).finish();
 const multipleMessageEncoded =
-  MultipleMessages.encode(multipleMessage).finish();
+  multiple.MultipleMessages.encode(multipleMessage).finish();
 
 const examplePath = join(dirname(__dirname), "examples");
 

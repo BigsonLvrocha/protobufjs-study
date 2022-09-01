@@ -1,7 +1,6 @@
 import * as grpc from "@grpc/grpc-js";
 import {
   definitions,
-  MessageServiceDefinition,
   MessageServiceClient,
 } from "./proto";
 import { SimpleMessage } from "./proto/__generated__/SimpleMessage";

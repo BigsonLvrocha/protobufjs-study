@@ -10,6 +10,6 @@ option go_package = "./pb";
 service MessageService {
   rpc SendMessage (SimpleMessage) returns (AcknowledgeMessage) {}
   rpc SendMultipleMessages (stream SimpleMessage) returns (MultipleAcknowledgeMessage) {}
-  rpc ReceiveMultipleAcknowledges (MultipleMessages) returns (stream AcknowledgeMessage) {}
+  rpc ReceiveMultipleAcknowledges (multiple.MultipleMessages) returns (stream AcknowledgeMessage) {}
   rpc MessagePingPong (stream SimpleMessage) returns (stream AcknowledgeMessage) {}
 }

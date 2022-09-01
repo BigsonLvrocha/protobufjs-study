@@ -4,6 +4,8 @@ option go_package = "./pb";
 
 import "SimpleMessage.proto";
 
+package multiple;
+
 message MultipleMessages {
   repeated SimpleMessage messages = 1;
 }
