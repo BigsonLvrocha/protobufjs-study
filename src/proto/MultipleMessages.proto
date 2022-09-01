@@ -1,11 +1,20 @@
 syntax = "proto3";
 
+// metadados para compilador
 option go_package = "./pb";
 
+/* suporte para import */
 import "SimpleMessage.proto";
 
+/*
+  Imports são feitos a partir da raiz do projeto
+  mas a raiz do projeto é configurável no compilador
+*/
+
+// pacote
 package multiple;
 
 message MultipleMessages {
+  // Define uma array de mensagens do tipo SimpleMessage
   repeated SimpleMessage messages = 1;
 }
