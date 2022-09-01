@@ -19,8 +19,11 @@ async function main() {
   ) as unknown as MessageServiceClient;
   try {
     await sendUnaryMessage(client);
+    await delay(3000);
     await sendClientStreamMessages(client);
+    await delay(3000);
     await sendServerStreamMessage(client);
+    await delay(3000);
     await sendBidirectionalStreamMessage(client);
   } finally {
     client.close();
