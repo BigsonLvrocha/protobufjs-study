@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+enum MessageStatus {
+  /*
+    o valor da tag 0 é especial
+    O valor 0 é o valor default do campo enum
+    Caso uma mensagem seja gerada com uma versão
+    que não contém o campo enum, o valor 0 será
+    atribuído, o que não significa, necessariamente
+    que o status da mensagem é PENDING
+
+    Por isso é aconselhável atribuir um status
+    UNKNOWN para a tag 0
+  */
+  STATUS_UNKNOWN = 0;
+  PENDING = 1;
+  SUCCESS = 2;
+  FAILED  = 3;
+}
