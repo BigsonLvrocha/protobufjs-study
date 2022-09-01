@@ -15,3 +15,11 @@ copy-proto:
 
 build-and-copy: build copy-proto
 
+start-grpc-server:
+	TS_NODE_TRANSPILE_ONLY=true npx ts-node src/server.ts
+
+start-grpc-client:
+	TS_NODE_TRANSPILE_ONLY=true npx ts-node src/client.ts
+
+run-protobuf-example:
+	TS_NODE_TRANSPILE_ONLY=true npx ts-node src/printMessages.ts
