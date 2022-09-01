@@ -7,9 +7,28 @@ import "MultipleMessages.proto";
 
 option go_package = "./pb";
 
+// definição de um serviço
 service MessageService {
+  // Endpoint para envio de mensagem unária, semelhante à uma chamada HTTP normal
   rpc SendMessage (SimpleMessage) returns (AcknowledgeMessage) {}
+
+  /*
+    Método para chamada com stream do cliente.
+    quando o cliente fecha a conexão, o servidor retorna o resultado
+  */
   rpc SendMultipleMessages (stream SimpleMessage) returns (MultipleAcknowledgeMessage) {}
+
+  /*
+    Método para chamada com stream do servidor.
+    Semelhante à requisições websocket
+
+    Observe que `MultipleMessages`` deve ser referenciado com prefixo `multiple.` pois está no pacote `multiple`
+  */
   rpc ReceiveMultipleAcknowledges (multiple.MultipleMessages) returns (stream AcknowledgeMessage) {}
+
+  /*
+    Método para chamada com stream duplex.
+    Tanto o client quanto o servidor transmitem dados
+  */
   rpc MessagePingPong (stream SimpleMessage) returns (stream AcknowledgeMessage) {}
 }
