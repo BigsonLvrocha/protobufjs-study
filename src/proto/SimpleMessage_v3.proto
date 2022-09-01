@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+/*
+  É possível retirar campos
+  contanto que a tag não seja reutilizada
+*/
+message SimpleMessage {
+  /*
+    Indica que a tag 2 já foi utilizada e não deve
+    ser definida para um novo campo
+
+    Evita erros de decodificação
+  */
+  reserved 2;
+
+  /*
+    Indica que o nome value já foi utilizado
+    e não deve ser reutilizado
+
+    Evita erros de código
+  */
+  reserved "value";
+
+  string id = 1;
+  bool private = 3;
+}

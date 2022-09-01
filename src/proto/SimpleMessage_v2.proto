@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+message SimpleMessage {
+  /*
+    Não posso alterar o tipo e a tag de um campo
+  */
+  string id = 1;
+
+  /*
+    Posso alterar o nome do campo
+    A Mensagem serializada será a mesma
+    Mas isso exigirá mudança no código
+  */
+  sint32 value_novo = 2;
+
+  /*
+    Posso criar campo novo.
+
+    Caso um serviço codifique a mensagem com a versão atual
+    mas um outro serviço decofique a mensagem com a versão
+    anterior, esse campo será ignorado
+
+    Caso um serviço codifique a mensagem com a versão anterior
+    mas um outro serviço decofique a mensagem com a versão
+    atual, um valor padrão será atribuído ao campo
+  */
+  bool private = 3;
+}
